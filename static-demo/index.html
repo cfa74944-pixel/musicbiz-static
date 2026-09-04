@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-metainfo="模板-商业分析工作台">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MusicBiz · 首页</title>
+  <link rel="stylesheet" href="assets/fontawesome/all.min.css">
+  <link rel="stylesheet" href="assets/fonts/fonts.css">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-page="home">
+  <nav class="topnav" data-metainfo="组织-顶部导航">
+    <div class="topnav-brand" data-metainfo="分子-品牌标识">
+      <span class="brand-name">MusicBiz</span>
+      <span class="brand-badge">BETA</span>
+    </div>
+    <div class="topnav-links" data-metainfo="分子-导航链接">
+      <a href="index.html" class="nav-link" data-page="home"><i class="fa-solid fa-house"></i> 首页</a>
+      <a href="artists.html" class="nav-link" data-page="artists"><i class="fa-solid fa-users"></i> 音乐人库</a>
+      <a href="tasks.html" class="nav-link" data-page="tasks"><i class="fa-solid fa-list-check"></i> 任务与报告</a>
+    </div>
+    <span class="nav-avatar-icon" title="登录用户（待接入）"><i class="fa-solid fa-user"></i></span>
+  </nav>
+
+  <div class="page" data-metainfo="组织-页面主体">
+
+    <!-- Hero 区 -->
+    <div class="hero-section" data-metainfo="组织-Hero区">
+      <div class="hero-left" data-metainfo="分子-Hero文案">
+        <div class="hero-eyebrow" data-metainfo="原子-文字">音乐人周边合作评估工具</div>
+        <h1 class="hero-title" data-metainfo="原子-文字">找到值得合作的<br>小体量音乐人</h1>
+        <p class="hero-sub" data-metainfo="原子-文字">整合演出活跃度、粉丝社媒热度与周边消费信号<br>量化评估合作价值，避免靠感觉做决策</p>
+        <div class="hero-caps" data-metainfo="分子-能力标签">
+          <span class="hero-cap" data-metainfo="原子-文字"><i class="fa-solid fa-ticket"></i> 演出变现力</span>
+          <span class="hero-cap" data-metainfo="原子-文字"><i class="fa-solid fa-signal"></i> 粉丝社媒热度</span>
+          <span class="hero-cap" data-metainfo="原子-文字"><i class="fa-solid fa-bag-shopping"></i> 周边消费潜力</span>
+          <span class="hero-cap" data-metainfo="原子-文字"><i class="fa-solid fa-heart-pulse"></i> 粉丝粘性</span>
+        </div>
+      </div>
+      <div class="hero-right" data-metainfo="分子-Hero操作区">
+        <div class="hero-action-card" data-metainfo="分子-操作引导卡">
+          <div class="hero-action-step" data-metainfo="原子-文字">
+            <span class="step-num">1</span>
+            <span>将待选音乐人录入音乐人库</span>
+          </div>
+          <div class="hero-action-step" data-metainfo="原子-文字">
+            <span class="step-num">2</span>
+            <span>生成详细报告，制定合作方案</span>
+          </div>
+          <div class="hero-btns" data-metainfo="分子-操作按钮组">
+            <a href="artists.html" class="btn btn-primary" data-metainfo="原子-按钮">
+              <i class="fa-solid fa-users"></i> 浏览音乐人库
+            </a>
+            <a href="artists.html?add=1" class="btn btn-ghost" data-metainfo="原子-按钮">
+              <i class="fa-solid fa-paper-plane"></i> 去提报
+            </a>
+            <a href="tasks.html" class="btn btn-ghost" data-metainfo="原子-按钮">
+              <i class="fa-solid fa-clock-rotate-left"></i> 查看全部报告
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 生成报告面板（默认折叠） -->
+    <div id="generate-panel" style="display:none" data-metainfo="组织-生成报告面板">
+      <div class="card" data-metainfo="组织-分析表单">
+        <div class="card-title" data-metainfo="分子-区块标题">
+          <i class="fa-solid fa-wand-magic-sparkles" style="color:var(--red)"></i> 生成报告
+          <button class="panel-close-btn" id="btn-close-panel" data-metainfo="原子-按钮"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="form-field" data-metainfo="分子-表单字段">
+          <label class="form-label" for="sel-artist" data-metainfo="原子-文字">选择音乐人</label>
+          <select id="sel-artist" class="select" data-metainfo="原子-控件">
+            <option value="">请选择音乐人…</option>
+          </select>
+          <div class="form-note" id="artist-note" style="display:none" data-metainfo="原子-文字">
+            <i class="fa-solid fa-circle-info"></i> 该音乐人数据待采集接入，接入后此处可选
+          </div>
+        </div>
+        <button id="btn-generate" class="btn btn-primary" style="width:100%" data-metainfo="原子-按钮">
+          <i class="fa-solid fa-wand-magic-sparkles"></i> 生成报告
+        </button>
+        <div id="progress-steps" class="progress-steps" data-metainfo="组织-任务进度（模拟）"></div>
+        <div class="stat-note" style="margin-top:16px;line-height:1.7" data-metainfo="原子-文字">
+          <i class="fa-solid fa-circle-info"></i> 生成报告会创建真实采集任务并自动抓取全部已接入数据源。
+          报告默认覆盖网易云、付费行为、社媒热度、粉丝粘性、周边消费与综合判断；合作方向固定为周边合作。
+        </div>
+      </div>
+    </div>
+
+    <!-- KPI 卡 + 近期记录 -->
+    <div data-metainfo="组织-数据概览区">
+      <div class="grid grid-4" style="margin-bottom:16px" data-metainfo="分子-KPI网格">
+        <div class="kpi-card" data-metainfo="分子-KPI卡片">
+          <div class="kpi-label" data-metainfo="原子-文字">累计分析</div>
+          <div class="kpi-num" id="kpi-total" data-metainfo="原子-文字">0</div>
+          <div class="kpi-sub" data-metainfo="原子-文字">全部报告</div>
+        </div>
+        <div class="kpi-card" data-metainfo="分子-KPI卡片">
+          <div class="kpi-label" data-metainfo="原子-文字">本月分析</div>
+          <div class="kpi-num gold" id="kpi-month" data-metainfo="原子-文字">0</div>
+          <div class="kpi-sub" id="kpi-month-label" data-metainfo="原子-文字"></div>
+        </div>
+        <div class="kpi-card" data-metainfo="分子-KPI卡片">
+          <div class="kpi-label" data-metainfo="原子-文字">平均商业价值分</div>
+          <div class="kpi-num red" id="kpi-avg" data-metainfo="原子-文字">0</div>
+          <div class="kpi-sub" data-metainfo="原子-文字">近30天</div>
+        </div>
+        <div class="kpi-card" data-metainfo="分子-KPI卡片">
+          <div class="kpi-label" data-metainfo="原子-文字">高价值音乐人</div>
+          <div class="kpi-num" id="kpi-high" data-metainfo="原子-文字">0</div>
+          <div class="kpi-sub" data-metainfo="原子-文字">200 分以上</div>
+        </div>
+      </div>
+
+      <div class="card" data-metainfo="组织-近期分析记录">
+        <div class="card-title" data-metainfo="分子-区块标题">
+          <i class="fa-solid fa-chart-bar" style="color:var(--gold)"></i> 近期分析 · 商业价值分对比
+          <div class="chart-legend" data-metainfo="分子-图例">
+            <span class="legend-dot paid"></span><span class="legend-text">付费</span>
+            <span class="legend-dot social"></span><span class="legend-text">社媒</span>
+            <span class="legend-dot fans"></span><span class="legend-text">粉丝</span>
+          </div>
+        </div>
+        <div id="score-chart" class="score-chart" data-metainfo="分子-评分图表"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="assets/mock-data.js"></script>
+  <script src="assets/static-data.js"></script>
+  <script src="assets/score-engine.js"></script>
+  <script src="assets/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-metainfo="模板-音乐人库列表页">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MusicBiz · 音乐人库</title>
+  <link rel="stylesheet" href="assets/fontawesome/all.min.css">
+  <link rel="stylesheet" href="assets/fonts/fonts.css">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-page="artists">
+  <nav class="topnav" data-metainfo="组织-顶部导航">
+    <div class="topnav-brand" data-metainfo="分子-品牌标识">
+      <span class="brand-name">MusicBiz</span>
+      <span class="brand-badge">BETA</span>
+    </div>
+    <div class="topnav-links" data-metainfo="分子-导航链接">
+      <a href="index.html" class="nav-link" data-page="home"><i class="fa-solid fa-house"></i> 首页</a>
+      <a href="artists.html" class="nav-link" data-page="artists"><i class="fa-solid fa-users"></i> 音乐人库</a>
+      <a href="tasks.html" class="nav-link" data-page="tasks"><i class="fa-solid fa-list-check"></i> 任务与报告</a>
+    </div>
+    <span class="nav-avatar-icon" title="登录用户（待接入）"><i class="fa-solid fa-user"></i></span>
+  </nav>
+
+  <div class="page" data-metainfo="组织-页面主体">
+    <div class="page-header" data-metainfo="组织-页面标题区">
+      <div>
+        <h1 class="page-title" data-metainfo="原子-文字">音乐人库</h1>
+        <p class="page-sub" data-metainfo="原子-文字">全部音乐人 · 支持搜索、筛选与排序，按商业价值分识别高价值合作对象</p>
+      </div>
+      <div class="page-actions" data-metainfo="分子-操作区">
+        <button id="btn-ai-fill" class="btn btn-ghost btn-sm" data-metainfo="原子-按钮"><i class="fa-solid fa-wand-magic-sparkles"></i> AI识别填入</button>
+        <button id="btn-add-artist" class="btn btn-ghost btn-sm" data-metainfo="原子-按钮"><i class="fa-solid fa-database"></i> 提报音乐人</button>
+      </div>
+    </div>
+
+    <!-- 筛选栏 -->
+    <div class="filter-bar" data-metainfo="组织-筛选栏">
+      <div class="filter-item" data-metainfo="分子-筛选项">
+        <i class="fa-solid fa-magnifying-glass" style="color:var(--text3)"></i>
+        <input type="text" id="f-search" class="input search" placeholder="搜索音乐人 / 风格…" data-metainfo="原子-控件">
+      </div>
+      <div class="filter-item" data-metainfo="分子-筛选项">
+        <span class="f-label" data-metainfo="原子-文字">平台</span>
+        <select id="f-platform" class="select" data-metainfo="原子-控件">
+          <option value="">全部平台</option>
+          <option value="weibo">微博</option>
+          <option value="douyin">抖音</option>
+          <option value="xiaohongshu">小红书</option>
+        </select>
+      </div>
+      <div class="filter-item" data-metainfo="分子-筛选项">
+        <span class="f-label" data-metainfo="原子-文字">微博粉丝</span>
+        <select id="f-fans" class="select" data-metainfo="原子-控件">
+          <option value="">不限</option>
+          <option value="0-100">100万以下</option>
+          <option value="100-500">100万 ~ 500万</option>
+          <option value="500-1000">500万 ~ 1000万</option>
+          <option value="1000-99999">1000万以上</option>
+        </select>
+      </div>
+      <div class="filter-item" data-metainfo="分子-筛选项">
+        <span class="f-label" data-metainfo="原子-文字">商业价值分</span>
+        <select id="f-score" class="select" data-metainfo="原子-控件">
+          <option value="">不限</option>
+          <option value="200-301">高价值（200+）</option>
+          <option value="100-200">中价值（100~199）</option>
+          <option value="0-100">低价值（&lt;100）</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- 列表 -->
+    <div class="table-wrap" data-metainfo="组织-音乐人表格">
+      <table class="table" id="artist-table" data-metainfo="分子-数据表格">
+        <thead data-metainfo="组织-表头">
+          <tr>
+            <th data-metainfo="原子-文字">音乐人</th>
+            <th data-metainfo="原子-文字">平台覆盖</th>
+            <th class="sortable" data-sort="fans" data-metainfo="原子-文字">微博粉丝 <span class="sort-icon"></span></th>
+            <th class="sortable" data-sort="netfans" data-metainfo="原子-文字">网易云粉丝 <span class="sort-icon"></span></th>
+            <th class="sortable" data-sort="score" data-metainfo="原子-文字">商业价值分 <span class="sort-icon"></span><button class="score-rule-btn" id="btn-score-rule" title="查看评分规则"><i class="fa-solid fa-circle-question"></i></button></th>
+            <th data-metainfo="原子-文字">快照时间</th>
+            <th data-metainfo="原子-文字">操作</th>
+          </tr>
+        </thead>
+        <tbody id="artist-tbody" data-metainfo="组织-表格内容"></tbody>
+      </table>
+    </div>
+    <div class="stat-note" style="margin-top:10px" data-metainfo="原子-文字">
+      <i class="fa-solid fa-circle-info"></i> 点击表头排序，点击行或「查看报告」进入详情 · 小红书数据待接入数据商，原型阶段以「*」标注
+    </div>
+  </div>
+
+  <script src="assets/mock-data.js"></script>
+  <script src="assets/static-data.js"></script>
+  <!-- 添加音乐人入库弹窗 -->
+  <div class="modal-overlay" id="add-artist-modal" data-metainfo="组织-添加音乐人弹窗">
+    <div class="modal" data-metainfo="分子-弹窗">
+      <div class="modal-header">
+        <span class="modal-title" data-metainfo="原子-文字">提报音乐人入库</span>
+        <button class="modal-close" id="add-modal-close" data-metainfo="原子-按钮"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body">
+        <div class="form-field">
+          <label class="form-label" data-metainfo="原子-文字">音乐人名称 *</label>
+          <input type="text" id="af-name" class="input" placeholder="如：陈粒 / 房东的猫" autocomplete="off" data-metainfo="原子-控件">
+        </div>
+        <div class="form-field">
+          <label class="form-label" data-metainfo="原子-文字">音乐人微博名称 / 别名</label>
+          <input type="text" id="af-weibo-alias" class="input" placeholder="如：邓大宽 / 卡布叻_周深（可留空）" autocomplete="off" data-metainfo="原子-控件">
+        </div>
+        <button id="af-identify" class="btn btn-primary" style="width:100%" data-metainfo="原子-按钮"><i class="fa-solid fa-magnifying-glass"></i> 查找网易云账号和微博名</button>
+        <div id="af-progress" class="collect-progress" data-metainfo="分子-采集进度"></div>
+        <div id="af-result" class="collect-result" data-metainfo="分子-采集结果"></div>
+        <div class="stat-note" style="margin-top:12px;line-height:1.7" data-metainfo="原子-文字">
+          <i class="fa-solid fa-circle-info"></i> 先轻量识别网易云账号和微博名，确认后入库；<br>
+          不提前深度采集，生成报告时再全量抓取网易云 / 大麦 / 秀动 / 微博 / 周边等数据。
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-ghost" id="add-modal-cancel" data-metainfo="原子-按钮">取消</button>
+        <button class="btn btn-primary" id="add-modal-submit" data-metainfo="原子-按钮"><i class="fa-solid fa-database"></i> 确认入库</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 评分规则弹窗 -->
+  <div class="modal-overlay" id="score-rule-modal" data-metainfo="组织-评分规则弹窗">
+    <div class="modal" style="max-width:520px" data-metainfo="分子-弹窗">
+      <div class="modal-header">
+        <span class="modal-title" data-metainfo="原子-文字">商业价值分 · 评分规则</span>
+        <button class="modal-close" id="score-rule-close" data-metainfo="原子-按钮"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body" style="font-size:12px;line-height:1.8;color:var(--text2)">
+        <p style="margin-bottom:12px;color:var(--text3)">总分 = 付费行为 + 社媒热度 + 粉丝粘性，满分 300 分</p>
+
+        <div class="rule-section">
+          <div class="rule-section-title paid-icon-bg">付费行为 <span class="rule-max">满分 100</span></div>
+          <p class="rule-desc">核心问题：观众愿意为这个人的演出掏多少钱？</p>
+          <table class="rule-table">
+            <tr><td>最高票价</td><td class="rule-pts">35 分</td><td>最重要信号。100元以下极低，300元中档，1000元以上满分</td></tr>
+            <tr><td>演出讨论度</td><td class="rule-pts">20 分</td><td>微博近30天"演唱会/巡演"相关帖子数</td></tr>
+            <tr><td>演出场次</td><td class="rule-pts">20 分</td><td>活跃度参考，不代表商业价值。3场起算，20场满分</td></tr>
+            <tr><td>城市覆盖</td><td class="rule-pts">10 分</td><td>跑了多少座城市</td></tr>
+            <tr><td>大麦想看人数</td><td class="rule-pts">10 分</td><td>有均值对比时用倍数，否则用绝对人数</td></tr>
+            <tr><td>近3场售罄率</td><td class="rule-pts">5 分</td><td>已售场次占比</td></tr>
+          </table>
+          <p class="rule-note">⚠️ 音乐节场次不计入任何子项（拼盘票价虚高，不反映个人号召力）</p>
+        </div>
+
+        <div class="rule-section">
+          <div class="rule-section-title social-icon-bg">社媒热度 <span class="rule-max">满分 100</span></div>
+          <p class="rule-desc">核心问题：这个人在网上有多少真实声量？</p>
+          <table class="rule-table">
+            <tr><td>微博互动均值</td><td class="rule-pts">15 分</td><td>近30条微博转评赞均值</td></tr>
+            <tr><td>微博粉丝量</td><td class="rule-pts">5 分</td><td>绝对量仅供参考</td></tr>
+            <tr><td>超话粉丝量</td><td class="rule-pts">5 分</td><td>主动订阅超话</td></tr>
+            <tr><td>超话累计帖子数</td><td class="rule-pts">5 分</td><td>社区活跃积累量</td></tr>
+            <tr><td>微博整体讨论帖数</td><td class="rule-pts">5 分</td><td>近30天提到艺人名字的帖子数</td></tr>
+            <tr><td>小红书粉丝量</td><td class="rule-pts">20 分</td><td>内容平台粉丝相对真实</td></tr>
+            <tr><td>小红书获赞收藏</td><td class="rule-pts">15 分</td><td>内容认可度</td></tr>
+            <tr><td>抖音粉丝量</td><td class="rule-pts">20 分</td><td>短视频平台粉丝基础</td></tr>
+            <tr><td>抖音获赞量</td><td class="rule-pts">10 分</td><td>作品传播力</td></tr>
+          </table>
+        </div>
+
+        <div class="rule-section">
+          <div class="rule-section-title fans-icon-bg">粉丝粘性 <span class="rule-max">满分 100</span></div>
+          <p class="rule-desc">核心问题：粉丝是真的爱，还是路人？</p>
+          <table class="rule-table">
+            <tr><td>核心粉丝密度</td><td class="rule-pts">25 分</td><td>超话粉丝/微博总粉丝，主动追的比例</td></tr>
+            <tr><td>粉丝忠诚转化率</td><td class="rule-pts">25 分</td><td>网易云粉丝数/月听众数，越高说明路人越少</td></tr>
+            <tr><td>网易云评论率</td><td class="rule-pts">25 分</td><td>评论数/播放量，情感投入深度信号</td></tr>
+            <tr><td>超话社区活跃度</td><td class="rule-pts">25 分</td><td>月发帖数/超话粉丝，社区是否持续运转</td></tr>
+          </table>
+          <p class="rule-note">💡 忠诚转化率高说明听众会主动关注而非偶然播放；评论率对独立音乐人区分力强</p>
+        </div>
+
+        <div class="rule-score-legend">
+          <span class="rule-badge high">高价值 ≥ 200</span>
+          <span class="rule-badge mid">中价值 100–199</span>
+          <span class="rule-badge low">低价值 &lt; 100</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AI 识别填入弹窗（人工收集文本 → 智能识别字段 → 确认写入，人工数据蓝色标记） -->
+  <div class="modal-overlay" id="ai-fill-modal" data-metainfo="组织-AI识别填入弹窗">
+    <div class="modal" style="max-width:720px" data-metainfo="分子-弹窗">
+      <div class="modal-header">
+        <span class="modal-title" data-metainfo="原子-文字">AI 识别填入（人工数据）</span>
+        <button class="modal-close" id="ai-fill-close" data-metainfo="原子-按钮"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body">
+        <div class="form-field">
+          <label class="form-label">选择音乐人</label>
+          <select id="ai-fill-artist" class="select" style="width:100%"><option value="">请选择…</option></select>
+        </div>
+        <div class="form-field">
+          <label class="form-label">粘贴人工收集的资料 <span style="color:var(--text3);font-weight:400">（一段话即可，自动识别字段）</span></label>
+          <textarea id="ai-fill-text" class="input" rows="5" placeholder="例：脆莓乐队，微博粉丝31.2万，超话乐迷8072，帖子5196，网易云粉丝26.9万，周边最热帖2612赞…" style="resize:vertical;font-family:inherit"></textarea>
+        </div>
+        <button id="ai-fill-run" class="btn btn-primary" style="width:100%"><i class="fa-solid fa-wand-magic-sparkles"></i> 智能识别</button>
+        <div id="ai-fill-result" class="collect-result" style="margin-top:12px"></div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-ghost" id="ai-fill-cancel">取消</button>
+        <button class="btn btn-primary" id="ai-fill-submit" disabled><i class="fa-solid fa-check"></i> 确认写入（蓝色标记）</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 生成报告弹窗 -->
+  <div class="modal-overlay" id="gen-report-modal" data-metainfo="组织-生成报告弹窗">
+    <div class="modal" style="max-width:400px" data-metainfo="分子-弹窗">
+      <div class="modal-header">
+        <span class="modal-title" data-metainfo="原子-文字">生成商业价值报告</span>
+        <button class="modal-close" id="gen-modal-close" data-metainfo="原子-按钮"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body">
+        <div class="gen-artist-info" id="gen-artist-info" data-metainfo="分子-艺人信息"></div>
+        <div class="form-group">
+          <label class="form-label">合作类型 <span style="color:var(--text3);font-weight:400">（可多选）</span></label>
+          <div class="coop-tags" id="gen-coop-tags" data-metainfo="分子-合作类型"></div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-ghost" id="gen-modal-cancel">取消</button>
+        <button class="btn btn-primary" id="gen-modal-confirm"><i class="fa-solid fa-wand-magic-sparkles"></i> 生成报告</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/score-engine.js"></script>
+  <script src="assets/app.js"></script>
+</body>
+</html>
+
+

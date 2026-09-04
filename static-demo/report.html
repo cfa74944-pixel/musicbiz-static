@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-metainfo="模板-商业价值报告页">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MusicBiz · 商业价值报告</title>
+  <link rel="stylesheet" href="assets/fontawesome/all.min.css">
+  <link rel="stylesheet" href="assets/fonts/fonts.css">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-page="report">
+  <nav class="topnav" data-metainfo="组织-顶部导航">
+    <div class="topnav-brand" data-metainfo="分子-品牌标识">
+      <span class="brand-name">MusicBiz</span>
+      <span class="brand-badge">BETA</span>
+    </div>
+    <div class="topnav-links" data-metainfo="分子-导航链接">
+      <a href="index.html" class="nav-link" data-page="home"><i class="fa-solid fa-house"></i> 首页</a>
+      <a href="artists.html" class="nav-link" data-page="artists"><i class="fa-solid fa-users"></i> 音乐人库</a>
+      <a href="tasks.html" class="nav-link" data-page="tasks"><i class="fa-solid fa-list-check"></i> 任务与报告</a>
+    </div>
+    <span class="nav-avatar-icon" title="登录用户（待接入）"><i class="fa-solid fa-user"></i></span>
+  </nav>
+
+  <div class="app-layout" data-metainfo="组织-双栏布局">
+    <!-- 左侧边栏：音乐人信息 + 评分环 + 维度导航 -->
+    <aside class="sidebar" data-metainfo="组织-左侧边栏">
+      <div class="artist-profile" data-metainfo="分子-音乐人信息">
+        <div class="artist-avatar-wrap" data-metainfo="原子-图片">
+          <img id="rp-avatar" src="" alt="占位图，待替换" class="artist-avatar">
+          <span class="verified-badge"><i class="fa-solid fa-circle-check"></i></span>
+        </div>
+        <div class="artist-name" id="rp-name" data-metainfo="原子-文字"></div>
+        <div class="artist-tags" id="rp-tags" data-metainfo="分子-标签组"></div>
+      </div>
+
+      <div class="radar-wrap" data-metainfo="分子-雷达图">
+        <svg class="radar-svg" id="radar-svg" viewBox="0 0 160 150" xmlns="http://www.w3.org/2000/svg">
+          <!-- 背景格线 -->
+          <g class="radar-grid" id="radar-grid"></g>
+          <!-- 填充面 -->
+          <polygon class="radar-fill" id="radar-fill" points=""/>
+          <!-- 边框线 -->
+          <polygon class="radar-stroke" id="radar-stroke" points=""/>
+          <!-- 顶点标签 -->
+          <g class="radar-labels" id="radar-labels"></g>
+        </svg>
+        <div class="radar-score" data-metainfo="原子-文字">
+          <span class="score-num" id="rp-score">0</span>
+          <span class="score-denom"> / 300</span>
+        </div>
+        <div class="score-label" id="rp-score-label" data-metainfo="原子-文字"></div>
+      </div>
+
+      <nav class="dim-nav" data-metainfo="分子-维度导航">
+        <button class="dim-btn" data-target="section-netease" data-metainfo="原子-文字">
+          <i class="fa-solid fa-headphones"></i><span>网易云热度</span>
+          <span class="dim-score gray" style="font-size:10px;padding:2px 6px">参考</span>
+          <span class="dim-btn-bar" style="display:none"></span>
+        </button>
+        <button class="dim-btn active" data-target="section-paid" data-metainfo="原子-文字">
+          <i class="fa-solid fa-ticket"></i><span>付费行为</span><span class="dim-score red" id="dim-paid">0</span>
+          <span class="dim-btn-bar bar-paid" id="bar-paid" data-metainfo="原子-进度条"></span>
+        </button>
+        <button class="dim-btn" data-target="section-social" data-metainfo="原子-文字">
+          <i class="fa-solid fa-signal"></i><span>社媒热度</span><span class="dim-score orange" id="dim-social">0</span>
+          <span class="dim-btn-bar bar-social" id="bar-social" data-metainfo="原子-进度条"></span>
+        </button>
+        <button class="dim-btn" data-target="section-fans" data-metainfo="原子-文字">
+          <i class="fa-solid fa-heart-pulse"></i><span>粉丝粘性</span><span class="dim-score green" id="dim-fans">0</span>
+          <span class="dim-btn-bar bar-fans" id="bar-fans" data-metainfo="原子-进度条"></span>
+        </button>
+        <button class="dim-btn" data-target="section-merch" data-metainfo="原子-文字">
+          <i class="fa-solid fa-bag-shopping"></i><span>周边消费</span>
+          <span class="dim-score gray" style="font-size:10px;padding:2px 6px">参考</span>
+          <span class="dim-btn-bar" style="display:none"></span>
+        </button>
+      </nav>
+
+      <div class="sidebar-actions" data-metainfo="分子-操作按钮组">
+        <button class="btn-export" data-metainfo="原子-按钮"><i class="fa-solid fa-file-arrow-down"></i> 导出报告 PDF</button>
+        <button class="btn-share" id="btn-recollect" data-metainfo="原子-按钮"><i class="fa-solid fa-rotate"></i> 重新采集数据</button>
+        <button class="btn-share" data-metainfo="原子-按钮"><i class="fa-solid fa-share-nodes"></i> 分享给同事</button>
+      </div>
+    </aside>
+
+    <!-- 右侧主内容 -->
+    <main class="main-content" data-metainfo="组织-主内容区">
+      <div class="content-topbar" data-metainfo="组织-内容顶部栏">
+        <button class="back-btn" onclick="history.back()" data-metainfo="原子-按钮"><i class="fa-solid fa-arrow-left"></i> 返回</button>
+        <div class="topbar-meta" data-metainfo="分子-元数据">
+          <span class="meta-item" id="rp-collect-note" style="display:none" data-metainfo="原子-文字"><i class="fa-solid fa-spinner fa-spin"></i> 正在采集最新数据…</span>
+          <span class="meta-item" data-metainfo="原子-文字"><i class="fa-regular fa-clock"></i> 生成于 <span id="rp-time"></span></span>
+          <span class="meta-item" data-metainfo="原子-文字"><i class="fa-solid fa-camera"></i> 快照 <span id="rp-snapshot"></span></span>
+          <span id="rp-coop" data-metainfo="分子-合作类型标签"></span>
+        </div>
+      </div>
+
+      <div id="rp-incomplete-note" class="incomplete-note" style="display:none" data-metainfo="分子-数据完整性提示"></div>
+
+      <div id="rp-sections" data-metainfo="组织-报告分区（JS 渲染）"></div>
+
+      <!-- 数据未接入时的空状态 -->
+      <div id="rp-empty" class="empty-state-page" style="display:none" data-metainfo="组织-空状态">
+        <i class="fa-solid fa-database"></i>
+        <div class="empty-title" data-metainfo="原子-文字">暂无该音乐人的数据</div>
+        <div class="empty-sub" data-metainfo="原子-文字">数据采集接入后，这里将展示商业价值报告：<br>付费行为（大麦/秀动）· 社媒热度（微博/抖音）· 粉丝粘性（派生指标）</div>
+        <a href="artists.html" class="btn btn-ghost btn-sm" data-metainfo="原子-按钮"><i class="fa-solid fa-arrow-left"></i> 返回音乐人库</a>
+      </div>
+    </main>
+  </div>
+
+  <script src="assets/mock-data.js"></script>
+  <script src="assets/static-data.js"></script>
+  <script src="assets/score-engine.js"></script>
+  <script src="assets/app.js"></script>
+</body>
+</html>
+
+

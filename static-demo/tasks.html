@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-metainfo="模板-任务与报告页">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MusicBiz · 任务与报告</title>
+  <link rel="stylesheet" href="assets/fontawesome/all.min.css">
+  <link rel="stylesheet" href="assets/fonts/fonts.css">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-page="tasks">
+  <nav class="topnav" data-metainfo="组织-顶部导航">
+    <div class="topnav-brand" data-metainfo="分子-品牌标识">
+      <span class="brand-name">MusicBiz</span>
+      <span class="brand-badge">BETA</span>
+    </div>
+    <div class="topnav-links" data-metainfo="分子-导航链接">
+      <a href="index.html" class="nav-link" data-page="home"><i class="fa-solid fa-house"></i> 首页</a>
+      <a href="artists.html" class="nav-link" data-page="artists"><i class="fa-solid fa-users"></i> 音乐人库</a>
+      <a href="tasks.html" class="nav-link" data-page="tasks"><i class="fa-solid fa-list-check"></i> 任务与报告</a>
+    </div>
+    <span class="nav-avatar-icon" title="登录用户（待接入）"><i class="fa-solid fa-user"></i></span>
+  </nav>
+
+  <div class="page" data-metainfo="组织-页面主体">
+    <div class="page-header" data-metainfo="组织-页面标题区">
+      <div>
+        <h1 class="page-title" data-metainfo="原子-文字">任务与报告</h1>
+        <p class="page-sub" data-metainfo="原子-文字">分析任务流转与历史报告 · 与商业分析页真实采集任务同步（进行中 → 完成 / 失败）</p>
+      </div>
+      <div class="page-actions" data-metainfo="分子-操作区">
+        <button id="btn-refresh-tasks" class="btn btn-ghost btn-sm" data-metainfo="原子-按钮"><i class="fa-solid fa-rotate"></i> 刷新任务状态</button>
+        <a href="index.html" class="btn btn-primary btn-sm" data-metainfo="原子-按钮"><i class="fa-solid fa-plus"></i> 新建分析</a>
+      </div>
+    </div>
+
+    <!-- 任务列表 -->
+    <div class="card" style="margin-bottom:24px" data-metainfo="组织-任务列表">
+      <div class="card-title" data-metainfo="分子-区块标题">
+        <i class="fa-solid fa-list-check" style="color:var(--orange)"></i> 分析任务
+        <span class="hint" data-metainfo="原子-文字">状态：排队 / 进行中 / 完成 / 失败</span>
+      </div>
+      <div class="table-wrap" data-metainfo="分子-数据表格">
+        <table class="table" data-metainfo="原子-表格">
+          <thead data-metainfo="组织-表头">
+            <tr>
+              <th data-metainfo="原子-文字">任务</th>
+              <th data-metainfo="原子-文字">发起时间</th>
+              <th data-metainfo="原子-文字">状态</th>
+              <th data-metainfo="原子-文字">操作</th>
+            </tr>
+          </thead>
+          <tbody id="task-tbody" data-metainfo="组织-表格内容"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 报告历史 -->
+    <div class="card" data-metainfo="组织-报告历史">
+      <div class="card-title" data-metainfo="分子-区块标题">
+        <i class="fa-solid fa-file-lines" style="color:var(--red)"></i> 报告历史
+        <span class="hint" data-metainfo="原子-文字">点击查看报告</span>
+      </div>
+      <div class="record-list" id="report-list" data-metainfo="分子-记录列表"></div>
+    </div>
+  </div>
+
+  <script src="assets/mock-data.js"></script>
+  <script src="assets/static-data.js"></script>
+  <script src="assets/score-engine.js"></script>
+  <script src="assets/app.js"></script>
+</body>
+</html>
+
+
