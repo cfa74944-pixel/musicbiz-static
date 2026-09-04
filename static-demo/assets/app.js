@@ -1443,6 +1443,7 @@
         result.innerHTML = '';
         prog.innerHTML = '<div class="collect-item running"><i class="fa-solid fa-spinner fa-spin"></i><span>正在查找网易云账号和微博名…</span></div>';
         try {
+          if (STATIC_MODE) throw new Error('静态展示版不提供账号识别功能');
           const r = await fetch('/api/identify?name=' + encodeURIComponent(name));
           const data = await r.json();
           if (data.error) throw new Error(data.error);
